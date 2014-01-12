@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{%  block content %}
+    <div class="col_left">
+        <form action="{{ url_for('items') }}" method="post">
+            {{ form.hidden_tag() }}
+
+            {{ form.sku.label }}
+            {{ form.sku }}
+
+            {{ form.title.label }}
+            {{ form.title }}
+
+            {{ form.submit }}
+        </form>
+        {% if item_added == True %}
+            <div class="success flash">Item added</div>
+        {%  else %}
+            {% for err in form.sku.errors %}
+                <div class="fail flash">{{ err }}</div>
+            {% endfor %}
+            {% for err in form.title.errors %}
+                <div class="fail flash">{{ err }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col_right">
+        <table cellspacing="0" id="grid_view">
+            <tbody>
+                <tr>
+                    <th>SKU</th>
+                    <th>Title</th>
+                </tr>
+                {% for key in test_item_dict %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ test_item_dict[key] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%  endblock %}

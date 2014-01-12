@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{%  block content %}
+    <div class="col_left">
+        <form action="{{ url_for('bins') }}" method="post">
+            {{ form.hidden_tag() }}
+
+            {{ form.name.label }}
+            {{ form.name }}
+
+            {{ form.shelf_name.label }}
+            {{ form.shelf_name }}
+
+            {{ form.submit }}
+        </form>
+        {% if item_added == True %}
+            <div class="success flash">Bin added</div>
+        {%  else %}
+            {% for err in form.name.errors %}
+                <div class="fail flash">{{ err }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col_right">
+        <table cellspacing="0" id="grid_view">
+            <tbody>
+                <tr>
+                    <th>Bin Name</th>
+                    <th>Shelf</th>
+                </tr>
+                {% for key in test_bin_dict %}
+                    <tr>
+                        <td>{{ test_bin_dict[key] }}</td>
+                        <td>Shelf the Bin is on</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%  endblock %}
