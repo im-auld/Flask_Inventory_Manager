@@ -4,7 +4,7 @@ from forms import *
 
 app = Flask(__name__)
 app.secret_key = 'secret_shhhhh'
-app.debug = True
+
 
 test_item_dict = {}
 for i in range(100, 201):
@@ -17,8 +17,6 @@ for i in range(1, 21):
 test_bin_dict = {}
 for i in range(1, 27):
     test_bin_dict[i] = ['CD' + str(i)]
-
-
 
 
 @app.route('/')

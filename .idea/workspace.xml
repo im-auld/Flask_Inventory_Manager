@@ -26,10 +26,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="flasktest.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="flasktest.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flasktest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="22" selection-start="386" selection-end="386" vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="1292">
+            <state line="6" column="0" selection-start="127" selection-end="127" vertical-scroll-proportion="0.1266766" vertical-offset="0" max-vertical-offset="1258">
               <folding />
             </state>
           </provider>
@@ -46,10 +46,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bins.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="bins.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/bins.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="27" selection-start="653" selection-end="653" vertical-scroll-proportion="0.44651163" vertical-offset="86" max-vertical-offset="748">
+            <state line="35" column="20" selection-start="1095" selection-end="1095" vertical-scroll-proportion="-22.884615" vertical-offset="0" max-vertical-offset="748">
               <folding />
             </state>
           </provider>
@@ -89,8 +89,8 @@
         <option value="$PROJECT_DIR$/templates/shelves.html" />
         <option value="$PROJECT_DIR$/static/css/main.css" />
         <option value="$PROJECT_DIR$/templates/layout.html" />
-        <option value="$PROJECT_DIR$/flasktest.py" />
         <option value="$PROJECT_DIR$/templates/bins.html" />
+        <option value="$PROJECT_DIR$/flasktest.py" />
       </list>
     </option>
   </component>
@@ -184,7 +184,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/bin/python2.7" />
     <property name="restartRequiresConfirmation" value="true" />
@@ -527,13 +527,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flasktest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="22" selection-start="386" selection-end="386" vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="1292">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="101" selection-start="689" selection-end="689" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
@@ -545,7 +538,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/bins.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="27" selection-start="653" selection-end="653" vertical-scroll-proportion="0.44651163" vertical-offset="86" max-vertical-offset="748">
+        <state line="35" column="20" selection-start="1095" selection-end="1095" vertical-scroll-proportion="-22.884615" vertical-offset="0" max-vertical-offset="748">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flasktest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="127" selection-end="127" vertical-scroll-proportion="0.1266766" vertical-offset="0" max-vertical-offset="1258">
           <folding />
         </state>
       </provider>
