@@ -3,10 +3,8 @@
     <div class="col_left">
         <form action="{{ url_for('shelves') }}" method="post">
             {{ form.hidden_tag() }}
-
             {{ form.name.label }}
             {{ form.name }}
-
             {{ form.submit }}
         </form>
         {% if item_added == True %}
