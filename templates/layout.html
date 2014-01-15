@@ -3,6 +3,14 @@
 <head>
     <title>Inventory Manager</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+      $(function() {
+        $( "#accordion" ).accordion();
+      });
+    </script>
 </head>
 <body>
 <div id="wrapper">

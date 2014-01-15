@@ -1,10 +1,17 @@
 from flask import Flask, render_template, request
 from forms import *
+from models import *
+from sqlalchemy.orm import sessionmaker
+from flask.ext.sqlalchmey import SQLAlchemy
+import os
 
 
 app = Flask(__name__)
-app.secret_key = 'secret_shhhhh'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///inventory.db')
+app.secret_key = 'secret_shhhhh!@#$1234'
 app.debug = True  # TODO: IMPORTANT >> Remove this before pushing live!!!!!!
+
+db = SQLAlchemy(app)
 
 test_item_dict = {}
 for i in range(100, 201):
@@ -18,6 +25,10 @@ test_bin_dict = {}
 for i in range(1, 27):
     test_bin_dict[i] = 'CD' + str(i)
 
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
 
 @app.route('/')
 def home():
@@ -27,16 +38,19 @@ def home():
 @app.route('/items', methods=['GET', 'POST'])
 def items():
     form = ItemForm()
+    item_list = Item.query.all()
     if request.method == 'GET':
-        return render_template('items.html', form=form, test_item_dict=test_item_dict)
+        return render_template('items.html', form=form, items=items)
     else:
         if form.validate():
-            test_item_dict[form.sku.data.upper()] = form.title.data
+            new_item = Item(form.sku.data, form.title.data)
+            session.add(new_item)
+            session.commit()
             form.sku.data = ''
             form.title.data = ''
-            return render_template('items.html', form=form, test_item_dict=test_item_dict, item_added=True)
+            return render_template('items.html', form=form, item_list=item_list, item_added=True)
         else:
-            return render_template('items.html', form=form, test_item_dict=test_item_dict, item_added=False)
+            return render_template('items.html', form=form, item_list=item_list, item_added=False)
 
 
 @app.route('/shelves', methods=['GET', 'POST'])
