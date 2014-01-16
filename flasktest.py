@@ -2,20 +2,17 @@ from flask import Flask, render_template, request
 from forms import *
 from models import *
 from sqlalchemy.orm import sessionmaker
-from flask.ext.sqlalchmey import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///inventory.db')
 app.secret_key = 'secret_shhhhh!@#$1234'
-app.debug = True  # TODO: IMPORTANT >> Remove this before pushing live!!!!!!
 
 db = SQLAlchemy(app)
 
 test_item_dict = {}
-for i in range(100, 201):
-    test_item_dict['SKU-{}'.format(i)] = 'Thing {}'.format(i)
 
 test_shelf_dict = {}
 for i in range(1, 21):
@@ -25,9 +22,9 @@ test_bin_dict = {}
 for i in range(1, 27):
     test_bin_dict[i] = 'CD' + str(i)
 
-Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
+# Base.metadata.bind = engine
+# DBSession = sessionmaker(bind=engine)
+# session = DBSession()
 
 
 @app.route('/')
@@ -38,16 +35,17 @@ def home():
 @app.route('/items', methods=['GET', 'POST'])
 def items():
     form = ItemForm()
-    item_list = Item.query.all()
+    item_list = db.session.query(Item).all()
     if request.method == 'GET':
-        return render_template('items.html', form=form, items=items)
+        return render_template('items.html', form=form, item_list=item_list)
     else:
         if form.validate():
             new_item = Item(form.sku.data, form.title.data)
-            session.add(new_item)
-            session.commit()
+            db.session.add(new_item)
+            db.session.commit()
             form.sku.data = ''
             form.title.data = ''
+            item_list = db.session.query(Item).all()
             return render_template('items.html', form=form, item_list=item_list, item_added=True)
         else:
             return render_template('items.html', form=form, item_list=item_list, item_added=False)
@@ -83,4 +81,4 @@ def bins():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, use_reloader=False)

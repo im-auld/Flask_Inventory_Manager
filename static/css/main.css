@@ -185,6 +185,13 @@ form input#submit:hover{
     max-height: 500px;
 }
 
+/* Accordion menu styles */
+#accordion h3 {
+    background: #2B2B2B;
+    opacity: .9;
+}
+
+
 /* Table view Style */
 #grid_view {
     width: 100%;
