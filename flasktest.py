@@ -4,6 +4,11 @@ from models import *
 from sqlalchemy.orm import sessionmaker
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
+import logging
+import sys
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 
 app = Flask(__name__)
@@ -35,21 +40,26 @@ def home():
 
 @app.route('/items', methods=['GET', 'POST'])
 def items():
-    form = ItemForm()
-    item_list = db.session.query(Item).all()
-    if request.method == 'GET':
-        return render_template('items.html', form=form, item_list=item_list)
-    else:
-        if form.validate():
-            new_item = Item(form.sku.data, form.title.data)
-            db.session.add(new_item)
-            db.session.commit()
-            form.sku.data = ''
-            form.title.data = ''
-            item_list = db.session.query(Item).all()
-            return render_template('items.html', form=form, item_list=item_list, item_added=True)
+    try:
+        log.info('Start reading form DB')
+        form = ItemForm()
+        item_list = db.session.query(Item).all()
+        if request.method == 'GET':
+            return render_template('items.html', form=form, item_list=item_list)
         else:
-            return render_template('items.html', form=form, item_list=item_list, item_added=False)
+            if form.validate():
+                new_item = Item(form.sku.data, form.title.data)
+                db.session.add(new_item)
+                db.session.commit()
+                form.sku.data = ''
+                form.title.data = ''
+                item_list = db.session.query(Item).all()
+                return render_template('items.html', form=form, item_list=item_list, item_added=True)
+            else:
+                return render_template('items.html', form=form, item_list=item_list, item_added=False)
+    except:
+        _, ex, _ = sys.exc_info()
+        log.error(ex.message)
 
 
 @app.route('/shelves', methods=['GET', 'POST'])
