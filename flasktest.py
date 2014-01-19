@@ -17,8 +17,6 @@ app.secret_key = 'secret_shhhhh!@#$1234'
 
 db = SQLAlchemy(app)
 
-test_item_dict = {}
-
 test_shelf_dict = {}
 for i in range(1, 21):
     test_shelf_dict[i] = 'Shelf {}'.format(i)

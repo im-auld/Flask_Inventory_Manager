@@ -8,13 +8,12 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-from flask.ext.sqlalchemy import SQLAlchemy
 
 
 Base = declarative_base()
-data_b = SQLAlchemy(app)
 
-class Shelf(data_b.Model):
+
+class Shelf(Base):
     __tablename__ = 'shelf'
     shelf_id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(20), nullable=False)
