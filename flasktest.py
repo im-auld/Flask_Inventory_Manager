@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
-app.config[debug=True]
+
 
 db = SQLAlchemy(app)
 
@@ -92,4 +92,4 @@ def bins():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True)
