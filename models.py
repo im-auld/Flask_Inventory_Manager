@@ -8,6 +8,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from flask.ext.sqlalchemy import SQLAlchemy
+from flasktest import app
 
 Base = declarative_base()
 db = SQLAlchemy(app)

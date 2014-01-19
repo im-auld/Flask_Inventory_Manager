@@ -7,10 +7,10 @@
 
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-
+from flask.ext.sqlalchemy import SQLAlchemy
 
 Base = declarative_base()
-
+db = SQLAlchemy(app)
 
 class Shelf(Base):
     __tablename__ = 'shelf'
@@ -52,4 +52,4 @@ class BinItem(Base):
     item_id = Column(Integer, ForeignKey('item.item_id'), primary_key=True)
     qty = Column(Integer, nullable=False)
 
-db = SQLAlchemy(app)
+
