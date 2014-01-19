@@ -15,7 +15,15 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
 
+class Item(db.Model):
+    __tablename__ = 'item'
+    item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    sku = db.Column(db.String(50), nullable=False, unique=True)
+    title = db.Column(db.String(100), nullable=False)
 
+    def __init__(self, sku, title):
+        self.sku = sku
+        self.title = title
 
 
 test_shelf_dict = {}
