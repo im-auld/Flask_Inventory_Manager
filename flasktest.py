@@ -10,14 +10,12 @@ import sys
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
 
 
 db = SQLAlchemy(app)
-db.create_all()
 
 test_item_dict = {}
 
