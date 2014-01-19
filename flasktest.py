@@ -17,6 +17,7 @@ app.secret_key = 'secret_shhhhh!@#$1234'
 
 
 db = SQLAlchemy(app)
+db.create_all()
 
 test_item_dict = {}
 
