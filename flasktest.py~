@@ -28,7 +28,7 @@ for i in range(1, 27):
 # Base.metadata.bind = engine
 # DBSession = sessionmaker(bind=engine)
 # session = DBSession()
-class Item(Base):
+class Item(db.Model):
     __tablename__ = 'item'
     item_id = Column(Integer, primary_key=True, autoincrement=True)
     sku = Column(String(50), nullable=False, unique=True)
