@@ -15,6 +15,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
 
+db = SQLAlchemy(app)
+
 class Item(db.Model):
     __tablename__ = 'item'
     item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
