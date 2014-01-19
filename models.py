@@ -7,27 +7,16 @@
 
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from flask.ext.sqlalchemy import SQLAlchemy
-from flasktest import app
+
 
 Base = declarative_base()
-db = SQLAlchemy(app)
+
 
 class Shelf(Base):
     __tablename__ = 'shelf'
     shelf_id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(20), nullable=False)
 
-
-class Item(db.Model):
-    __tablename__ = 'item'
-    item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    sku = db.Column(db.String(50), nullable=False, unique=True)
-    title = db.Column(db.String(100), nullable=False)
-
-    def __init__(self, sku, title):
-        self.sku = sku
-        self.title = title
 """
 class Item(Base):
     __tablename__ = 'item'

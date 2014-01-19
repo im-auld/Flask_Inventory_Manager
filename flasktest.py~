@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
 from forms import *
-from models import Item, Bin, Shelf, BinItem
+from models import Item, Bin, Shelf, BinItem, db
 from sqlalchemy.orm import sessionmaker
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 import logging
 import sys
-from models import db
+
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
