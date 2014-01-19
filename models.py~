@@ -20,7 +20,7 @@ class Shelf(Base):
 
 
 class Item(Base):
-    #__tablename__ = 'item'
+    __tablename__ = 'item'
     item_id = Column(Integer, primary_key=True, autoincrement=True)
     sku = Column(String(50), nullable=False, unique=True)
     title = Column(String(100), nullable=False)
