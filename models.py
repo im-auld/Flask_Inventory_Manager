@@ -7,7 +7,6 @@
 
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
 
 
 Base = declarative_base()
@@ -42,7 +41,3 @@ class BinItem(Base):
     bin_id = Column(Integer, ForeignKey('bin.bin_id'), primary_key=True)
     item_id = Column(Integer, ForeignKey('item.item_id'), primary_key=True)
     qty = Column(Integer, nullable=False)
-
-
-engine = create_engine('sqlite:///inventory.db')
-Base.metadata.create_all(engine)

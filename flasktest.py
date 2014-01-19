@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from forms import *
-from models import *
+from models import Item, Bin, Shelf, BinItem
 from sqlalchemy.orm import sessionmaker
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
