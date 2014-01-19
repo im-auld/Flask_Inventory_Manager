@@ -6,6 +6,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import os
 import logging
 import sys
+from models import db
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -15,7 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
 
 
-db = SQLAlchemy(app)
+
 
 test_shelf_dict = {}
 for i in range(1, 21):
@@ -28,15 +29,6 @@ for i in range(1, 27):
 # Base.metadata.bind = engine
 # DBSession = sessionmaker(bind=engine)
 # session = DBSession()
-class Item(db.Model):
-    __tablename__ = 'item'
-    item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    sku = db.Column(db.String(50), nullable=False, unique=True)
-    title = db.Column(db.String(100), nullable=False)
-
-    def __init__(self, sku, title):
-        self.sku = sku
-        self.title = title
 
 @app.route('/')
 def home():

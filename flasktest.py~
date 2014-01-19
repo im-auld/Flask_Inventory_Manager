@@ -30,9 +30,9 @@ for i in range(1, 27):
 # session = DBSession()
 class Item(db.Model):
     __tablename__ = 'item'
-    item_id = Column(Integer, primary_key=True, autoincrement=True)
-    sku = Column(String(50), nullable=False, unique=True)
-    title = Column(String(100), nullable=False)
+    item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    sku = db.Column(db.String(50), nullable=False, unique=True)
+    title = db.Column(db.String(100), nullable=False)
 
     def __init__(self, sku, title):
         self.sku = sku
