@@ -28,7 +28,15 @@ for i in range(1, 27):
 # Base.metadata.bind = engine
 # DBSession = sessionmaker(bind=engine)
 # session = DBSession()
+class Item(Base):
+    __tablename__ = 'item'
+    item_id = Column(Integer, primary_key=True, autoincrement=True)
+    sku = Column(String(50), nullable=False, unique=True)
+    title = Column(String(100), nullable=False)
 
+    def __init__(self, sku, title):
+        self.sku = sku
+        self.title = title
 
 @app.route('/')
 def home():
