@@ -5,7 +5,6 @@ from sqlalchemy.orm import sessionmaker
 from flask.ext.sqlalchmey import SQLAlchemy
 import os
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///inventory.db')
 app.secret_key = 'secret_shhhhh!@#$1234'
@@ -13,7 +12,6 @@ app.debug = True  # TODO: IMPORTANT >> Remove this before pushing live!!!!!!
 
 db = SQLAlchemy(app)
 
-test_item_dict = {}
 for i in range(100, 201):
     test_item_dict['SKU-{}'.format(i)] = 'Thing {}'.format(i)
 
