@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from forms import *
-from models import Bin, Shelf, BinItem, db
+from models import Item, Bin, Shelf, BinItem, db
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 import logging
