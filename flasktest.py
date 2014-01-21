@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
-
+db.init_app(app)
 
 test_shelf_dict = {}
 for i in range(1, 21):
@@ -85,4 +85,3 @@ def bins():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    db.init_app(app)
