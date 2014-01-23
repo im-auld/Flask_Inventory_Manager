@@ -15,7 +15,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
 db.init_app(app)
-db.create_all()
 
 @app.route('/')
 def home():
