@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.secret_key = 'secret_shhhhh!@#$1234'
 db.init_app(app)
-
+db.create_all()
 
 @app.route('/')
 def home():
@@ -66,15 +66,15 @@ def bins():
     form = BinForm()
     bin_list = db.session.query(Bin).all()
     if request.method == 'GET':
-        return render_template('bins.html', form=form, bin_list=test_bin_dict)
+        return render_template('bins.html', form=form, bin_list=bin_list)
     else:
         if form.validate():
-            test_bin_dict[len(test_bin_dict) + 1] = form.name.data
+            bin_list[len(bin_list) + 1] = form.name.data
             form.name.data = ''
             form.shelf_name = ''
-            return render_template('bins.html', form=form, test_bin_dict=shelf_list, shelf_added=True)
+            return render_template('bins.html', form=form, bin_list=bin_list, shelf_added=True)
         else:
-            return render_template('bins.html', form=form, test_bin_dict=shelf_list, shelf_added=False)
+            return render_template('bins.html', form=form, bin_list=bin_list, shelf_added=False)
 
 
 if __name__ == '__main__':
