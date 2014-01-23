@@ -5,7 +5,6 @@
 #Description:
 
 
-from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -14,10 +13,14 @@ Base = declarative_base()
 db = SQLAlchemy()
 
 
-class Shelf(Base):
+class Shelf(db.Model):
     __tablename__ = 'shelf'
-    shelf_id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(20), nullable=False)
+    shelf_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20), nullable=False)
+
+    def __init__(self, shelf_id, name):
+        self.shelf_id = shelf_id
+        self.name = name
 
 
 class Item(db.Model):
@@ -30,17 +33,28 @@ class Item(db.Model):
         self.sku = sku
         self.title = title
 
-class Bin(Base):
+
+class Bin(db.Model):
     __tablename__ = 'bin'
-    bin_id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(20), nullable=False)
-    shelf_id = Column(Integer, ForeignKey('shelf.shelf_id'))
+    bin_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20), nullable=False)
+    shelf_id = db.Column(db.Integer, db.ForeignKey('shelf.shelf_id'))
+
+    def __init__(self, name, shelf_id):
+        self.name = name
+        self.shelf_id = shelf_id
 
 
-class BinItem(Base):
+class BinItem(db.Model):
     __tablename__ = 'bin_item'
-    bin_id = Column(Integer, ForeignKey('bin.bin_id'), primary_key=True)
-    item_id = Column(Integer, ForeignKey('item.item_id'), primary_key=True)
-    qty = Column(Integer, nullable=False)
+    bin_id = db.Column(db.Integer, db.ForeignKey('bin.bin_id'), primary_key=True)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), primary_key=True)
+    qty = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, bin_id, item_id, qty):
+        self.bin_id = bin_id
+        self.item_id = item_id
+        self.qty = qty
+
 
 
