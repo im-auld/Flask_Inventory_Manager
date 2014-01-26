@@ -55,6 +55,7 @@ def shelves():
         if form.validate():
             new_shelf = Shelf(form.name.data)
             db.session.add(new_shelf)
+            db.session.commit()
             form.name.data = ''
             return render_template('shelves.html', form=form, shelf_list=shelf_list, shelf_added=True)
         else:
