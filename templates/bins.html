@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {%  block content %}
-    <div class="col_left">
+    {% block sidebar %}
         <form action="{{ url_for('bins') }}" method="post">
             {{ form.hidden_tag() }}
 
@@ -19,21 +19,21 @@
                 <div class="fail flash">{{ err }}</div>
             {% endfor %}
         {% endif %}
-    </div>
-    <div class="col_right">
+    {% endblock %}
+    {% block main_content %}
         <table cellspacing="0" id="grid_view">
             <tbody>
                 <tr>
                     <th>Bin Name</th>
                     <th>Shelf</th>
                 </tr>
-                {% for key in test_bin_dict %}
+                {% for bin in bin_list %}
                     <tr>
-                        <td>{{ test_bin_dict[key] }}</td>
-                        <td>Shelf the Bin is on</td>
+                        <td>{{ bin.name }}</td>
+                        <td>{{ bin.shelf_id }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </div>
+    {% endblock %}
 {%  endblock %}

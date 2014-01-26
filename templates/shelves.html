@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {%  block content %}
-    <div class="col_left">
+    {% block sidebar %}
         <form action="{{ url_for('shelves') }}" method="post">
             {{ form.hidden_tag() }}
             {{ form.name.label }}
@@ -14,21 +14,21 @@
                 <div class="fail flash">{{ err }}</div>
             {% endfor %}
         {% endif %}
-    </div>
-    <div class="col_right">
+    {% endblock %}
+    {% block main_content %}
         <table cellspacing="0" id="grid_view">
             <tbody>
                 <tr>
                     <th>Shelf Name</th>
                     <th>Bins on Shelf</th>
                 </tr>
-                {% for key in test_shelf_dict %}
+                {% for shelf in shelf_list %}
                     <tr>
-                        <td>{{ test_shelf_dict[key] }}</td>
+                        <td>{{ shelf.name }}</td>
                         <td>List of bins will be here with CRUD links</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </div>
+    {% endblock %}
 {%  endblock %}

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 from forms import *
 from models import Item, Bin, Shelf, BinItem, db
-from flask.ext.sqlalchemy import SQLAlchemy
 import os
 import logging
 import sys
@@ -12,7 +11,7 @@ log = logging.getLogger(__name__)
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///inventory.db')
 app.secret_key = 'secret_shhhhh!@#$1234'
 db.init_app(app)
 
@@ -43,6 +42,7 @@ def items():
     except:
         _, ex, _ = sys.exc_info()
         log.error(ex.message)
+        return render_template('items.html', form=form, item_list=item_list)
 
 
 @app.route('/shelves', methods=['GET', 'POST'])
@@ -53,7 +53,8 @@ def shelves():
         return render_template('shelves.html', form=form, shelf_list=shelf_list)
     else:
         if form.validate():
-            shelf_list[form.name.data] = form.name.data
+            new_shelf = Shelf(form.name.data)
+            db.session.add(new_shelf)
             form.name.data = ''
             return render_template('shelves.html', form=form, shelf_list=shelf_list, shelf_added=True)
         else:

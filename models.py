@@ -18,8 +18,7 @@ class Shelf(db.Model):
     shelf_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), nullable=False)
 
-    def __init__(self, shelf_id, name):
-        self.shelf_id = shelf_id
+    def __init__(self, name):
         self.name = name
 
 
