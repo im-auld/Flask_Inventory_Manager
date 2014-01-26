@@ -70,7 +70,9 @@ def bins():
         return render_template('bins.html', form=form, bin_list=bin_list)
     else:
         if form.validate():
-            bin_list[len(bin_list) + 1] = form.name.data
+            new_bin = Bin(form.name.data, form.shelf_name)
+            db.session.add(new_bin)
+            db.session.commit()
             form.name.data = ''
             form.shelf_name = ''
             return render_template('bins.html', form=form, bin_list=bin_list, shelf_added=True)
