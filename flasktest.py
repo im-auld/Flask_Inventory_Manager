@@ -70,7 +70,7 @@ def bins():
         return render_template('bins.html', form=form, bin_list=bin_list)
     else:
         if form.validate():
-            new_bin = Bin(form.name.data, form.shelf_name)
+            new_bin = Bin(form.name.data, 1)  #TODO: Fix this. Need to get the shelf_id from the shelf_name
             db.session.add(new_bin)
             db.session.commit()
             form.name.data = ''
