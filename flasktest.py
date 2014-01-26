@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from forms import *
-from models import Item, Bin, Shelf, BinItem, db
+from models import Item, Bin, Shelf, db
 import os
 import logging
 import sys
