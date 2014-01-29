@@ -1,4 +1,29 @@
 {% extends 'layout.html' %}
-{% block content %}
-    <p>Hello from the Home Page</p>
-{%  endblock %}
+{% block sidebar %}
+    <div id="accordion">
+        <h3>Items</h3>
+        <ul>
+            <li>Number of Items in DB: {{ item_list|length }}</li>
+            <li>Items in stock: {{ bin_item_list|length }}</li><!-- TODO: Replace with sum of items in stock -->
+        </ul>
+        <h3>Bins</h3>
+        <ul>
+            <li>Number of Bins: {{ bin_list|length }}</li>
+        </ul>
+        <h3>Shelves</h3>
+        <ul>
+            <li>Number of Shelves: {{ shelf_list|length }}</li>
+        </ul>
+    </div>
+{% endblock %}<!-- end sidebar -->
+{% block main_content %}
+    {% for stock in bin_item_list %}
+        <div class="stock">
+            <ul>
+                <li>Item: {{ stock.item_id }}</li>
+                <li>Bin: {{ stock.bin_id }}</li>
+                <li>QTY: {{ stock.qty }}</li>
+            </ul>
+        </div>
+    {% endfor %}
+{%  endblock %} <!-- end main_content -->
