@@ -1,10 +1,23 @@
 {% extends 'layout.html' %}
 {% block sidebar %}
+    <div id="stock_form">
+        <form>
+            {{ stock_form.in_out }}
+            {{ stock_form.item.label }}
+            {{ stock_form.item }}
+            {{ stock_form.bin.label }}
+            {{ stock_form.bin }}
+            {{ stock_form.qty.label }}
+            {{ stock_form.qty }}
+            {{ stock_form.submit }}
+        </form>
+    </div>
     <div id="accordion">
         <h3>Items</h3>
         <ul>
             <li>Number of Items in DB: {{ item_list|length }}</li>
-            <li>Items in stock: {{ bin_item_list|length }}</li><!-- TODO: Replace with sum of items in stock -->
+            <li>Items in stock: Stuff</li><!-- TODO: Replace with sum of items in stock -->
+            <li><button id="add_item">Adjust Stock</button></li>
         </ul>
         <h3>Bins</h3>
         <ul>
@@ -14,7 +27,7 @@
         <ul>
             <li>Number of Shelves: {{ shelf_list|length }}</li>
         </ul>
-    </div>
+    </div><!-- /acordion -->
 {% endblock %}<!-- end sidebar -->
 {% block main_content %}
     {% for stock in bin_item_list %}
