@@ -1,7 +1,11 @@
-__author__ = 'ian'
+#Author: Ian Auld
+#Date: '1/15/14'
+#PyVer: 2.7
+#Title: 'Flask_Inventory_Manager'
+#Description:
 
 from flask.ext.wtf import Form
-from wtforms.fields import TextField, SubmitField
+from wtforms.fields import TextField, SubmitField, SelectField, IntegerField
 import wtforms
 
 
@@ -22,3 +26,14 @@ class BinForm(Form):
     submit = SubmitField('Submit')
 
 
+class SearchForm(Form):
+    search_on = SelectField('', choices=[('sku', 'sku'), ('title', 'title')])
+    search_term = TextField('Search', [wtforms.validators.Required('Please enter a search term')])
+    submit = SubmitField('Submit')
+    
+class StockForm(Form):
+    in_out = SelectField('', choices=[('in', 'move item in'),('out', 'move item out')])
+    item = TextField('Item', [wtforms.validators.Required('Item is required')])
+    bin = TextField('Bin', [wtforms.validators.Required('Bin is required')])
+    qty = IntegerField('QTY', [wtforms.validators.Required('QTY is required')])
+    submit = SubmitField('Add')
