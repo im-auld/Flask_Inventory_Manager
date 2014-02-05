@@ -1,6 +1,6 @@
 #Author: Ian Auld
 #Date: '1/15/14'
-#PyVer: 3.3
+#PyVer: 2.7
 #Title: 'Flask_Inventory_Manager'
 #Description:
 
@@ -49,11 +49,30 @@ class BinItem(db.Model):
     bin_id = db.Column(db.Integer, db.ForeignKey('bin.bin_id'), primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), primary_key=True)
     qty = db.Column(db.Integer, nullable=False)
+    total_qty = 0
 
     def __init__(self, bin_id, item_id, qty):
         self.bin_id = bin_id
         self.item_id = item_id
         self.qty = qty
+        total_qty += self.qty
+        
+    def get_item(self):
+        item = db.session.query(Item).filter(Item.item_id == self.item_id).one()
+        return item
+        
+    def get_bin(self):
+        bin = db.session.query(Bin).filter(Bin.bin_id == self.bin_id).one()
+        return bin
+        
+    def get_item_total(self):
+        total = 0
+        results = db.session.query(BinItem).all()
+        for row in results:
+            total += row.qty
+        return total
 
-
+def query_all(model):
+    result = db.session.query(model).all()
+    return result
 
