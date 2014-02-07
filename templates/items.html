@@ -6,20 +6,20 @@
     <h3>Add Item</h3>
     <div>
         <form action="{{ url_for('items') }}" method="post">
-            {{ form.hidden_tag() }}
-            {{ form.sku.label }}
-            {{ form.sku }}
-            {{ form.title.label }}
-            {{ form.title }}
-            {{ form.submit }}
+            {{ i_form.hidden_tag() }}
+            {{ i_form.sku.label }}
+            {{ i_form.sku }}
+            {{ i_form.title.label }}
+            {{ i_form.title }}
+            {{ i_form.submit }}
         </form>
         {% if item_added == True %}
             <div class="success flash">Item added</div>
         {%  else %}
-            {% for err in form.sku.errors %}
+            {% for err in i_form.sku.errors %}
                 <div class="fail flash">{{ err }}</div>
             {% endfor %}
-            {% for err in form.title.errors %}
+            {% for err in i_form.title.errors %}
                 <div class="fail flash">{{ err }}</div>
             {% endfor %}
         {% endif %}
@@ -27,23 +27,11 @@
     <h3>Search for Item</h3>
     <div>
         <form action="{{ url_for('items') }}" method="post">
-            {{ form.hidden_tag() }}
-            {{ form.sku.label }}
-            {{ form.sku }}
-            {{ form.title.label }}
-            {{ form.title }}
-            {{ form.submit }}
+            
+            {{ s_form.search_term.label }}
+            {{ s_form.search_on }}{{ s_form.search_term }}
+            {{ s_form.submit }}
         </form>
-        {% if item_added == True %}
-            <div class="success flash">Item added</div>
-        {%  else %}
-            {% for err in form.sku.errors %}
-                <div class="fail flash">{{ err }}</div>
-            {% endfor %}
-            {% for err in form.title.errors %}
-                <div class="fail flash">{{ err }}</div>
-            {% endfor %}
-        {% endif %}
     </div>
 </div>
 {% endblock %}

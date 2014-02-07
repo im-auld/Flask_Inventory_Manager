@@ -1,6 +1,12 @@
+#Author: Ian Auld
+#Date: '1/15/14'
+#PyVer: 2.7
+#Title: 'Flask_Inventory_Manager'
+#Description:
+
 from flask import Flask, render_template, request
-from forms import *
-from models import Item, Bin, Shelf, db
+from forms import ItemForm, ShelfForm, BinForm, SearchForm, StockForm 
+from models import Item, Bin, Shelf, BinItem, db, query_all
 import os
 import logging
 import sys
@@ -17,32 +23,53 @@ db.init_app(app)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    item_list = query_all(Item)
+    shelf_list = query_all(Shelf)
+    bin_list = query_all(Bin)
+    bin_item_list = query_all(BinItem)
+    stock_form = StockForm()
+    #stock_form.item.choices = ['thing']
+    context = {
+        'stock_form' : stock_form,
+        'bin_list' : bin_list,
+        'item_list' : item_list,
+        'shelf_list' : shelf_list,
+        'bin_item_list' : bin_item_list,
+    }
+    #return render_template('home.html', **context)
+    return render_template('home.html', stock_form=stock_form, bin_list=bin_list, item_list=item_list, shelf_list=shelf_list, bin_item_list=bin_item_list)
 
+def stock_adjust(item_id, bin_id, qty):
+    adjust = db.session.query(BinItem).filter(BinItem.bin_id == bin_id).filter(BinItem.item_id == item_id).one()
+    form = StockForm(obj=adjust)
+    if form.validate_on_submit():
+        form.populte_obj(adjust)
+    return 'IT worked'
 
 @app.route('/items', methods=['GET', 'POST'])
 def items():
     try:
-        log.info('Start reading form DB')
-        form = ItemForm()
+        log.info('Start reading from DB')
+        i_form = ItemForm()
+        s_form = SearchForm()
         item_list = db.session.query(Item).all()
         if request.method == 'GET':
-            return render_template('items.html', form=form, item_list=item_list)
+            return render_template('items.html', i_form=i_form, s_form=s_form, item_list=item_list)
         else:
-            if form.validate():
-                new_item = Item(form.sku.data, form.title.data)
+            if i_form.validate():
+                new_item = Item(i_form.sku.data, i_form.title.data)
                 db.session.add(new_item)
                 db.session.commit()
-                form.sku.data = ''
-                form.title.data = ''
+                i_form.sku.data = ''
+                i_form.title.data = ''
                 item_list = db.session.query(Item).all()
-                return render_template('items.html', form=form, item_list=item_list, item_added=True)
+                return render_template('items.html', i_form=i_form, s_form=s_form, item_list=item_list, item_added=True)
             else:
-                return render_template('items.html', form=form, item_list=item_list, item_added=False)
+                return render_template('items.html', i_form=i_form, s_form=s_form, item_list=item_list, item_added=False)
     except:
         _, ex, _ = sys.exc_info()
         log.error(ex.message)
-        return render_template('items.html', form=form, item_list=item_list)
+        return render_template('items.html', i_form=i_form, s_form=s_form, item_list=item_list)
 
 
 @app.route('/shelves', methods=['GET', 'POST'])
