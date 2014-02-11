@@ -21,14 +21,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:/
 app.secret_key = 'secret_shhhhh!@#$1234'
 db.init_app(app)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
     item_list = query_all(Item)
     shelf_list = query_all(Shelf)
     bin_list = query_all(Bin)
     bin_item_list = query_all(BinItem)
     stock_form = StockForm()
-    #stock_form.item.choices = ['thing']
+    stock_form.item.choices = [(c.item_id, c.sku) for c in Item.query.order_by('sku')]
+    stock_form.bin.choices = [(c.bin_id, c.name) for c in Bin.query.order_by('name')]
     context = {
         'stock_form' : stock_form,
         'bin_list' : bin_list,
@@ -36,15 +37,42 @@ def home():
         'shelf_list' : shelf_list,
         'bin_item_list' : bin_item_list,
     }
-    #return render_template('home.html', **context)
-    return render_template('home.html', stock_form=stock_form, bin_list=bin_list, item_list=item_list, shelf_list=shelf_list, bin_item_list=bin_item_list)
+    if request.method == 'GET':
+        # return render_template('home.html', **context)
+        return render_template('home.html', stock_form=stock_form, bin_list=bin_list, item_list=item_list, shelf_list=shelf_list, bin_item_list=bin_item_list)
+    else:
+        if stock_form.validate():
+            new_bi = BinItem(stock_form.bin.data, stock_form.item.data, stock_form.qty.data)
+            db.session.add(new_bi)
+            db.session.commit()
+            print(new_bi.bin_id, new_bi.item_id, new_bi.qty)
+            return render_template('home.html', 
+                stock_form=stock_form, 
+                bin_list=bin_list, 
+                item_list=item_list, 
+                shelf_list=shelf_list, 
+                bin_item_list=bin_item_list, 
+                success=True
+            )
+        else:
+            return render_template('home.html', 
+                stock_form=stock_form, 
+                bin_list=bin_list, 
+                item_list=item_list, 
+                shelf_list=shelf_list, 
+                bin_item_list=bin_item_list, 
+                success=False
+            )
 
 def stock_adjust(item_id, bin_id, qty):
     adjust = db.session.query(BinItem).filter(BinItem.bin_id == bin_id).filter(BinItem.item_id == item_id).one()
-    form = StockForm(obj=adjust)
-    if form.validate_on_submit():
-        form.populte_obj(adjust)
-    return 'IT worked'
+    if adjust:
+        adjust.qty += qty
+    else:
+        new_bi = BinItem(bin_id, item_id, qty)
+        db.session.add(new_bi)
+    db.session.commit()
+    
 
 @app.route('/items', methods=['GET', 'POST'])
 def items():
