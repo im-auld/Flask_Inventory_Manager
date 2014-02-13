@@ -30,7 +30,7 @@
                 {% for bin in bin_list %}
                     <tr>
                         <td>{{ bin.name }}</td>
-                        <td>{{ bin.shelf_id }}</td>
+                        <td>{{ bin.get_shelf_name().name }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
