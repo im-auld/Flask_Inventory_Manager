@@ -2,45 +2,60 @@
 <html>
 <head>
     <title>Inventory Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script>
-      $(function() {
-        $( "#accordion" ).accordion();
-      });
+        $(function() {
+            $("#stock_form").dialog({
+              autoOpen: false,
+              height: 300,
+              width: 350,
+              modal: true
+            });
+         
+            $( "#add_item" )
+              .button()
+              .click(function() {
+                $( "#stock_form" ).dialog("open");
+              });
+        });
+        $(function() {
+            $( "#accordion" ).accordion();
+        });
     </script>
 </head>
 <body>
-<div id="wrapper">
-    <header>
+    <div id="wrapper">
+        <header>
+            <div class="container">
+                <h1 class="logo">INVENTORY</h1>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="{{ url_for('home') }}">Home</a> </li>
+                        <li><a href="{{ url_for('items') }}">Items</a> </li>
+                        <li><a href="{{ url_for('shelves') }}">Shelves</a> </li>
+                        <li><a href="{{ url_for('bins') }}">Bins</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
         <div class="container">
-            <h1 class="logo">INVENTORY</h1>
-            <nav>
-                <ul class="menu">
-                    <li><a href="{{ url_for('home') }}">Home</a> </li>
-                    <li><a href="{{ url_for('items') }}">Items</a> </li>
-                    <li><a href="{{ url_for('shelves') }}">Shelves</a> </li>
-                    <li><a href="{{ url_for('bins') }}" >Bins</a></li>
-                </ul>
-            </nav>
+            <div class="col_left">
+                {% block sidebar %}
+                {% endblock %}
+            </div>
+            <div class="col_right">
+                {% block main_content %}
+                {% endblock %}
+            </div>
         </div>
-    </header>
-    <div class="container">
-        <div class="col_left">
-            {% block sidebar %}
-            {% endblock %}
-        </div>
-        <div class="col_right">
-            {% block main_content %}
-            {% endblock %}
-        </div>
-    </div>
-    <footer>
-        <div class="footer">
-            <p class="logo">Footer stuff</p>
-        </div>
-    </footer>
-</div>
+        <footer>
+            <div class="footer">
+                <p class="logo">Footer stuff</p>
+            </div>
+        </footer>
+    </div><!-- /wrapper -->
 </body>
 </html>

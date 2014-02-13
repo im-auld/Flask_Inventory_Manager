@@ -1,4 +1,63 @@
 {% extends 'layout.html' %}
+{% block sidebar %}
+    
+    <div id="stock_form">
+        <form action="{{ url_for('home') }}" method='post'>
+            {{ stock_form.hidden_tag() }}
+            {{ stock_form.in_out }}
+            {{ stock_form.item.label }}
+            {{ stock_form.item }}
+            {{ stock_form.bin.label }}
+            {{ stock_form.bin }}
+            {{ stock_form.qty.label }}
+            {{ stock_form.qty }}
+            {{ stock_form.submit }}
+        </form>
+        {% if success == True %}
+            <div class=" flash success">
+               <div class="flash success">Hooray</div>
+            </div>
+        {% else %}
+                {% for err in stock_form.item.errors %}
+                    <div class="flash fail">{{ err }}</div>
+                {% endfor %}
+                {% for err in stock_form.bin.errors %}
+                    <div class="flash fail">{{ err }}</div>
+                {% endfor %}
+                {% for err in stock_form.qty.errors %}
+                    <div class="flash fail">{{ err }}</div>
+                {% endfor %}
+                {% if stock_form.errors %}
+                    <div class="flash fail">{{ stock_form.errors }}</div>
+                {% endif %}
+        {% endif %}
+    </div>
+    <div id="accordion">
+        <h3>Items</h3>
+        <ul>
+            <li>Number of Items in DB: {{ item_list|length }}</li>
+            <li>Items in stock: {{ bin_item_list[0].get_item_total() }}</li>
+            <li><button id="add_item">Adjust Stock</button></li>
+        </ul>
+        <h3>Bins</h3>
+        <ul>
+            <li>Number of Bins: {{ bin_list|length }}</li>
+        </ul>
+        <h3>Shelves</h3>
+        <ul>
+            <li>Number of Shelves: {{ shelf_list|length }}</li>
+        </ul>
+    </div><!-- /acordion -->
+{% endblock %}<!-- end sidebar -->
+
 {% block main_content %}
-    <p>Hello from the Home Page</p>
-{%  endblock %}
+    {% for stock in bin_item_list %}
+        <div class="stock">
+            <ul>
+                <li>Item: {{ stock.get_item().title }}</li>
+                <li>Bin: {{ stock.get_bin().name }}</li>
+                <li>QTY: {{ stock.qty }}</li>
+            </ul>
+        </div>
+    {% endfor %}
+{%  endblock %} <!-- end main_content -->

@@ -1,5 +1,14 @@
 html, body {
     height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h3 {
+    margin: 0;
+}
+
+ul li {
+    list-style: none;
 }
 
 body {
@@ -75,7 +84,6 @@ h2 {
 h3 {
     font-size: 1.7em;
     font-weight: 100;
-    margin-top: 30px;
     text-align: center;
     letter-spacing: -1px;
     color: #999;
@@ -201,6 +209,21 @@ form input#submit:hover{
 
 tr:nth-of-type(odd){
     background-color: #c3c3c3;
+}
+
+.stock {
+    border: 1px solid black;
+    border-radius: 4px;
+    float: left;
+    margin: 5px;
+}
+
+#stock_form {
+    border: solid 3px black;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,.5);
+    padding: 10px;
 }
 
 /* Footer */
