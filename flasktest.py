@@ -4,7 +4,7 @@
 #Title: 'Flask_Inventory_Manager'
 #Description:
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, redirect, url_for
 from forms import ItemForm, ShelfForm, BinForm, SearchForm, StockForm 
 from models import Item, Bin, Shelf, BinItem, db, query_all
 from sqlalchemy.orm.exc import NoResultFound

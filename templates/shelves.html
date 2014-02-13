@@ -1,3 +1,4 @@
+<!-- TODO: Fix flash message logic -->
 {% extends 'layout.html' %}
 {%  block content %}
     {% block sidebar %}
@@ -21,11 +22,13 @@
                 <tr>
                     <th>Shelf Name</th>
                     <th>Bins on Shelf</th>
+                    <th></th>
                 </tr>
                 {% for shelf in shelf_list %}
                     <tr>
                         <td>{{ shelf.name }}</td>
-                        <td>List of bins will be here with CRUD links</td>
+                        <td>Will expand Shelf model in future</td>
+                        <td><a href="#">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

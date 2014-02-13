@@ -13,7 +13,7 @@ Base = declarative_base()
 db = SQLAlchemy()
 
 
-class Shelf(db.Model):
+class Shelf(db.Model):  # TODO: Expand this model to include shelf size, capacity etc (far ahead)
     __tablename__ = 'shelf'
     shelf_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), nullable=False)
@@ -47,6 +47,7 @@ class Bin(db.Model):
         shelf = db.session.query(Shelf).filter(Shelf.shelf_id == self.shelf_id).one()
         return shelf
 
+
 class BinItem(db.Model):
     __tablename__ = 'bin_item'
     bin_id = db.Column(db.Integer, db.ForeignKey('bin.bin_id'), primary_key=True)
@@ -58,18 +59,15 @@ class BinItem(db.Model):
         self.bin_id = bin_id
         self.item_id = item_id
         self.qty = qty
-        
-        
+
     def get_item(self):
         item = db.session.query(Item).filter(Item.item_id == self.item_id).one()
         return item
-        
-        
+
     def get_bin(self):
         bin = db.session.query(Bin).filter(Bin.bin_id == self.bin_id).one()
         return bin
-        
-        
+
     def get_item_total(self):
         total = 0
         results = db.session.query(BinItem).all()

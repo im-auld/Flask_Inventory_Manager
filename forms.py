@@ -33,7 +33,7 @@ class SearchForm(Form):
     
     
 class StockForm(Form):
-    in_out = SelectField('', choices=[('in', 'move item in'), ('out', 'move item out')])
+    in_out = SelectField('', choices=[('in', 'move item in'), ('out', 'move item out')])  # TODO: Change to radio button
     item = SelectField('Item', coerce=int)
     bin = SelectField('Bin', coerce=int)
     qty = IntegerField('QTY', [wtforms.validators.Required('QTY is required')])
