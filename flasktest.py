@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request
-from forms import *
+from flask import Flask, render_template, request, redirect, url_for
+from forms import ItemForm, BinForm, ShelfForm
 from models import Item, Bin, Shelf, db
 import os
 import logging
@@ -70,7 +70,7 @@ def bins():
         return render_template('bins.html', form=form, bin_list=bin_list)
     else:
         if form.validate():
-            new_bin = Bin(form.name.data, 1)  #TODO: Fix this. Need to get the shelf_id from the shelf_name
+            new_bin = Bin(form.name.data, 1)  # TODO: Fix this. Need to get the shelf_id from the shelf_name
             db.session.add(new_bin)
             db.session.commit()
             form.name.data = ''
@@ -79,6 +79,10 @@ def bins():
         else:
             return render_template('bins.html', form=form, bin_list=bin_list, shelf_added=False)
 
+
+@app.route('/delete')
+def delete():
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
