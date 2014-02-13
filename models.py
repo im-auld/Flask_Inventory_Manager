@@ -43,6 +43,9 @@ class Bin(db.Model):
         self.name = name
         self.shelf_id = shelf_id
 
+    def get_shelf_name(self):
+        shelf = db.session.query(Shelf).filter(Shelf.shelf_id == self.shelf_id).one()
+        return shelf
 
 class BinItem(db.Model):
     __tablename__ = 'bin_item'
@@ -55,15 +58,17 @@ class BinItem(db.Model):
         self.bin_id = bin_id
         self.item_id = item_id
         self.qty = qty
-        total_qty += self.qty
+        
         
     def get_item(self):
         item = db.session.query(Item).filter(Item.item_id == self.item_id).one()
         return item
         
+        
     def get_bin(self):
         bin = db.session.query(Bin).filter(Bin.bin_id == self.bin_id).one()
         return bin
+        
         
     def get_item_total(self):
         total = 0
@@ -71,6 +76,7 @@ class BinItem(db.Model):
         for row in results:
             total += row.qty
         return total
+
 
 def query_all(model):
     result = db.session.query(model).all()

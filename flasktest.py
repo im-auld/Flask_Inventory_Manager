@@ -4,7 +4,7 @@
 #Title: 'Flask_Inventory_Manager'
 #Description:
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from forms import ItemForm, ShelfForm, BinForm, SearchForm, StockForm 
 from models import Item, Bin, Shelf, BinItem, db, query_all
 import os
@@ -37,32 +37,18 @@ def home():
         'shelf_list' : shelf_list,
         'bin_item_list' : bin_item_list,
     }
-    if request.method == 'GET':
-        # return render_template('home.html', **context)
-        return render_template('home.html', stock_form=stock_form, bin_list=bin_list, item_list=item_list, shelf_list=shelf_list, bin_item_list=bin_item_list)
-    else:
-        if stock_form.validate():
+    if stock_form.validate_on_submit():
+        bi = db.session.query(BinItem).filter(BinItem.item_id == stock_form.item.data).filter(BinItem.bin_id == stock_form.bin.data).one()
+        if not bi:
             new_bi = BinItem(stock_form.bin.data, stock_form.item.data, stock_form.qty.data)
             db.session.add(new_bi)
             db.session.commit()
-            print(new_bi.bin_id, new_bi.item_id, new_bi.qty)
-            return render_template('home.html', 
-                stock_form=stock_form, 
-                bin_list=bin_list, 
-                item_list=item_list, 
-                shelf_list=shelf_list, 
-                bin_item_list=bin_item_list, 
-                success=True
-            )
+            return redirect(url_for('home'))
         else:
-            return render_template('home.html', 
-                stock_form=stock_form, 
-                bin_list=bin_list, 
-                item_list=item_list, 
-                shelf_list=shelf_list, 
-                bin_item_list=bin_item_list, 
-                success=False
-            )
+            print 'This item is in stock in this location'
+    else:
+        print 'it failed!'
+    return render_template('home.html', stock_form=stock_form, bin_list=bin_list, item_list=item_list, shelf_list=shelf_list, bin_item_list=bin_item_list)
 
 def stock_adjust(item_id, bin_id, qty):
     adjust = db.session.query(BinItem).filter(BinItem.bin_id == bin_id).filter(BinItem.item_id == item_id).one()
@@ -72,7 +58,9 @@ def stock_adjust(item_id, bin_id, qty):
         new_bi = BinItem(bin_id, item_id, qty)
         db.session.add(new_bi)
     db.session.commit()
-    
+  
+def delete():
+    pass
 
 @app.route('/items', methods=['GET', 'POST'])
 def items():

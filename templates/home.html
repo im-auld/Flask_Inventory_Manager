@@ -1,8 +1,12 @@
 {% extends 'layout.html' %}
 {% block sidebar %}
     
-    <div id="stock_form">     
+    <div id="stock_form">
+    {% if stock_form.errors %}
+        {{ stock_form.errors }}
+    {% endif %}
         <form action="{{ url_for('home') }}" method='post'>
+            {{ stock_form.hidden_tag() }}
             {{ stock_form.in_out }}
             {{ stock_form.item.label }}
             {{ stock_form.item }}
