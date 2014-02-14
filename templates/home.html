@@ -3,43 +3,29 @@
 <!-- TODO: Add subtract all function to stock dialog -->
 {% extends 'layout.html' %}
 {% block sidebar %}
-    <div id="stock_form">
-        <form action="{{ url_for('home') }}" method='post'>
-            {{ stock_form.hidden_tag() }}
-            {{ stock_form.in_out }}
-            {{ stock_form.item.label }}
-            {{ stock_form.item }}
-            {{ stock_form.bin.label }}
-            {{ stock_form.bin }}
-            {{ stock_form.qty.label }}
-            {{ stock_form.qty }}
-            {{ stock_form.submit }}
-        </form>
         {% if success == True %}
             <div class=" flash success">
                <div class="flash success">Hooray</div>
             </div>
         {% else %}
-                {% for err in stock_form.item.errors %}
-                    <div class="flash fail">{{ err }}</div>
-                {% endfor %}
-                {% for err in stock_form.bin.errors %}
-                    <div class="flash fail">{{ err }}</div>
-                {% endfor %}
-                {% for err in stock_form.qty.errors %}
-                    <div class="flash fail">{{ err }}</div>
-                {% endfor %}
-                {% if stock_form.errors %}
-                    <div class="flash fail">{{ stock_form.errors }}</div>
-                {% endif %}
+            {% for err in stock_form.item.errors %}
+                <div class="flash fail">{{ err }}</div>
+            {% endfor %}
+            {% for err in stock_form.bin.errors %}
+                <div class="flash fail">{{ err }}</div>
+            {% endfor %}
+            {% for err in stock_form.qty.errors %}
+                <div class="flash fail">{{ err }}</div>
+            {% endfor %}
+            {% if stock_form.errors %}
+                <div class="flash fail">{{ stock_form.errors }}</div>
+            {% endif %}
         {% endif %}
-    </div>
-    <div id="accordion">
         <h3>Items</h3>
         <ul class="nav nav-sidebar">
             <li>Number of Items in DB: {{ item_list|length }}</li>
             <li>Items in stock: {{ bin_item_list[0].get_item_total() }}</li>
-            <li><button class="btn btn-primary" id="add_item">Adjust Stock</button></li>
+            <li><button class="btn btn-primary" data-toggle="modal" data-target="#stock-form-modal">Stock Adjust</li>
         </ul>
         <h3>Bins</h3>
         <ul class="nav nav-sidebar">
@@ -49,7 +35,6 @@
         <ul class="nav nav-sidebar">
             <li>Number of Shelves: {{ shelf_list|length }}</li>
         </ul>
-    </div><!-- /acordion -->
 {% endblock %}<!-- end sidebar -->
 
 {% block main_content %}
@@ -66,3 +51,39 @@
         </div>
     {% endfor %}
 {%  endblock %} <!-- end main_content -->
+{% block modals %}
+<div class="modal fade" id="stock-form-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <form action="{{ url_for('home') }}" method='post'>
+                    {{ stock_form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ stock_form.in_out }}
+                    </div>
+                    <div class="form-group">
+                        {{ stock_form.item.label }}
+                        {{ stock_form.item }}
+                    </div>
+                    <div class="form-group">
+                        {{ stock_form.bin.label }}
+                        {{ stock_form.bin }}
+                    </div>
+                    <div class="form-group">
+                        {{ stock_form.qty.label }}
+                        {{ stock_form.qty }}
+                    </div>
+                
+              </div>
+              <div class="modal-footer">
+                {{ stock_form.submit(class_='btn btn-primary') }}
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+{% endblock %}

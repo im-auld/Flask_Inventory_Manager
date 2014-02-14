@@ -5,12 +5,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="{{ url_for('static', filename='scripts/bootstrap.min.js') }}"></script>
-    <script>
+    <!-- <script>
         $(function() {
             $("#stock_form").dialog({
               autoOpen: false,
@@ -25,10 +24,7 @@
                 $( "#stock_form" ).dialog("open");
               });
         });
-        $(function() {
-            $( "#accordion" ).accordion();
-        });
-    </script>
+    </script>-->
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -69,5 +65,7 @@
             </div>
         </div><!-- /row -->
     </div> <!-- /container-fluid -->
+    {% block modals %}
+    {% endblock %}
 </body>
 </html>
