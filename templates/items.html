@@ -43,11 +43,16 @@
             <tr>
                 <th>SKU</th>
                 <th>Title</th>
+                <th></th>
             </tr>
             {% for each_item in item_list %}
                 <tr>
                     <td>{{ each_item.sku }}</td>
                     <td>{{ each_item.title }}</td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" href="delete/{{ each_item.item_id }}" onClick="confirm('Are you sure?')"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                        <a class="btn btn-primary btn-xs" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

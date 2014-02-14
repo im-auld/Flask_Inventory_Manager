@@ -58,6 +58,19 @@ def home():
                            item_list=item_list,
                            shelf_list=shelf_list,
                            bin_item_list=bin_item_list)
+                           
+
+@app.route('/delete/<int:item_id>')
+def delete(item_id):
+    try:
+        check = BinItem.query.filter(BinItem.item_id == item_id)
+    except NoResultFound:
+        item = Item.query.get(item_id)
+        db.session.delete(item)
+        db.session.commit()
+    else:
+        print 'Can\'t let you do that Star Fox!'
+    return redirect(url_for('items'))
 
 
 @app.route('/items', methods=['GET', 'POST'])
