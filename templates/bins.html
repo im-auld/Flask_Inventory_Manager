@@ -5,13 +5,14 @@
     {% block sidebar %}
         <form action="{{ url_for('bins') }}" method="post">
             {{ form.hidden_tag() }}
-
-            {{ form.name.label }}
-            {{ form.name }}
-
-            {{ form.shelf_name.label }}
-            {{ form.shelf_name }}
-
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name }}
+            </div><!-- /form-group -->
+            <div class="form-group">
+                {{ form.shelf_name.label }}
+                {{ form.shelf_name }}
+            </div><!-- /form-group -->
             {{ form.submit }}
         </form>
         {% if item_added == True %}
@@ -23,7 +24,7 @@
         {% endif %}
     {% endblock %}
     {% block main_content %}
-        <table cellspacing="0" id="grid_view">
+        <table cellspacing="0" class="table table-bordered table-striped">
             <tbody>
                 <tr>
                     <th>Bin Name</th>

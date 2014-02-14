@@ -3,14 +3,18 @@
 <head>
     <title>Inventory Manager</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="{{ url_for('static', filename='scripts/bootstrap.min.js') }}"></script>
     <script>
         $(function() {
             $("#stock_form").dialog({
               autoOpen: false,
-              height: 300,
+              
               width: 350,
               modal: true
             });
@@ -27,35 +31,43 @@
     </script>
 </head>
 <body>
-    <div id="wrapper">
-        <header>
-            <div class="container">
-                <h1 class="logo">INVENTORY</h1>
-                <nav>
-                    <ul class="menu">
-                        <li><a href="{{ url_for('home') }}">Home</a> </li>
-                        <li><a href="{{ url_for('items') }}">Items</a> </li>
-                        <li><a href="{{ url_for('shelves') }}">Shelves</a> </li>
-                        <li><a href="{{ url_for('bins') }}">Bins</a></li>
-                    </ul>
-                </nav>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">INVENTORY</a>
             </div>
-        </header>
-        <div class="container">
-            <div class="col_left">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('home') }}">Home</a> </li>
+                    <li><a href="{{ url_for('items') }}">Items</a> </li>
+                    <li><a href="{{ url_for('shelves') }}">Shelves</a> </li>
+                    <li><a href="{{ url_for('bins') }}">Bins</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+            </div>
+        </div>
+    </div><!-- /container -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
                 {% block sidebar %}
+                    <p>Hellpo</p>
                 {% endblock %}
             </div>
-            <div class="col_right">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 {% block main_content %}
                 {% endblock %}
             </div>
-        </div>
-        <footer>
-            <div class="footer">
-                <p class="logo">Footer stuff</p>
-            </div>
-        </footer>
-    </div><!-- /wrapper -->
+        </div><!-- /row -->
+    </div> <!-- /container-fluid -->
 </body>
 </html>

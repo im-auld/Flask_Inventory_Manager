@@ -6,7 +6,7 @@
             {{ form.hidden_tag() }}
             {{ form.name.label }}
             {{ form.name }}
-            {{ form.submit }}
+            {{ form.submit(class_='btn') }}
         </form>
         {% if item_added == True %}
             <div class="success flash">Shelf added</div>
@@ -17,7 +17,7 @@
         {% endif %}
     {% endblock %}
     {% block main_content %}
-        <table cellspacing="0" id="grid_view">
+        <table cellspacing="0" id="grid_view" class="table table-bordered table-striped">
             <tbody>
                 <tr>
                     <th>Shelf Name</th>
